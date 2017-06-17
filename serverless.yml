@@ -26,6 +26,10 @@ provider:
   region: eu-central-1
   memorySize: 128
 
+  
+package:
+  exclude:
+    - node_modules/**
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
