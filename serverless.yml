@@ -56,7 +56,7 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  hello:
+  exchage_avg_day:
     handler: handler.exchage_avg_day
 
 #    The following are a few example events you can configure
