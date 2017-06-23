@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: exchageAvgDay # NOTE: update this with your service name
+service: aws-nodejs # NOTE: update this with your service name
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
@@ -22,14 +22,10 @@ provider:
   runtime: nodejs6.10
 
 # you can overwrite defaults here
-#  stage: dev
+  stage: dev
   region: eu-central-1
   memorySize: 128
 
-  
-package:
-  exclude:
-    - node_modules/**
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -55,9 +51,9 @@ package:
 #  include:
 #    - include-me.js
 #    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+  exclude:
+    - node_modules/**
+    - '!node_modules/request/**'
 
 functions:
   exchage_avg_day:

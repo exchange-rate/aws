@@ -10,31 +10,25 @@ const url = 'https://query.yahooapis.com/v1/public/yql?q=select+*+from+yahoo.fin
 '%22&format=' +
 'json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=#query/results/rate/0';
 
-function updateTodayTable(data, cb) {
-    const rate = data.query.results.rate;
-    const [USDUAH, EURUAH, EURRUB, USDRUB] = rate;
-
-    let params = {
-        TableName: 'currency',
-        Item: {
-            date: data.query.created,
-            currencies: {
-                USDUAH: { id: USDUAH.id, rate: Number(USDUAH.Rate) },
-                EURUAH: { id: EURUAH.id, rate: Number(EURUAH.Rate) },
-                EURRUB: { id: EURRUB.id, rate: Number(EURRUB.Rate) },
-                USDRUB: { id: USDRUB.id, rate: Number(USDRUB.Rate) },
-            },
-            id: '_' + Date.now()
-        }
-    };
-
-    docClient.put(params, (err, data) => {
-        if (err) {
-            cb(err, null)
-        } else {
-            cb(null, data);
-        }
-    });
+function updateTodayTable(data, cb) { 
+	data.query.results.rate.forEach((cur)=> {
+		let params = {
+			TableName: 'currency',
+			Item: {
+				date: data.query.created,
+                currency: cur.id,
+				rate: Number(cur.Rate)
+			}
+		};
+		docClient.put(params, (err, data) => {
+			if (err) {
+				cb(null, JSON.stringify(err, null, 2))
+			} else {
+				cb(null, data);
+			}
+		});	
+	});
+    
 }
 
 function updateAllDaysTable() {
@@ -55,4 +49,4 @@ function update(e, ctx, cb) {
     });
 }
 
-module.exports = update;
+module.exports.updateTables = update;

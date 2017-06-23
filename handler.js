@@ -8,7 +8,7 @@ function exchage_avg_day(event, context, callback) {
 	const endDate = today.setDate(today.getDate() - 1);
 	const params = {
 		TableName: 'currency',
-		ProjectionExpression: '#date, currencies',
+		ProjectionExpression: '#date',
 		FilterExpression: '#date between :after_date and :before_date',
 		ExpressionAttributeNames: {
 			'#date': 'date'

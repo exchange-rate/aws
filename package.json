@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/exchange-rate/aws#readme",
   "devDependencies": {
-    "aws-sdk": "^2.72.0",
-    "serverless": "^1.15.3"
+    "serverless": "^1.16.0"
+  },
+  "dependencies": {
+    "request": "^2.81.0"
   }
 }
